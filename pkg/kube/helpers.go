@@ -282,3 +282,18 @@ func GetPodConditionFromList(conditions []corev1.PodCondition, conditionType cor
 	}
 	return -1, nil
 }
+
+func CreateServiceAccount(ctx content.Context, config *rest.Config, namespace string) error {
+	clientset, err := kubernetes.NewForConfig(config)
+	if err != nil {
+		return nil, errors.Wrapf(err, "failed to create kubernetes clientset")
+	}
+
+	return clientset.CoreV1().Create(ctx, 
+			&v1.ServiceAccount {
+				
+			},
+			&metav1.CreateOptions{},
+	)
+
+}
